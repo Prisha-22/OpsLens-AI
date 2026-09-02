@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env
+*.env
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+python/ml/models/

@@ -1,425 +1,285 @@
-# 🚚 OpsLens AI — Delivery Operations Intelligence Platform
+# OpsLens AI - Delivery Operations Intelligence Platform
 
-> **An end-to-end data analytics and AI-powered operations intelligence platform for monitoring, predicting, and improving delivery performance.**
+OpsLens AI is an end-to-end data analytics and AI-powered operations intelligence platform designed to monitor, analyze, predict, and improve food-delivery operations.
 
-OpsLens AI transforms delivery data into actionable operational intelligence through **analytics, KPI monitoring, anomaly detection, root-cause analysis, forecasting, machine-learning prediction, and automated recommendations**.
+It combines SQL analytics, Python, PostgreSQL, machine learning, anomaly detection, root-cause analysis, forecasting, AI insights, and automated recommendations in a single Streamlit application.
 
-The platform is designed around a real-world food-delivery operations scenario similar to platforms such as Zomato and Swiggy.
+## Live Demo
 
----
+**Streamlit App:**
+https://opslens-ai-project22.streamlit.app/
 
-## 🎯 Project Overview
+**GitHub Repository:**
+https://github.com/Prisha-22/OpsLens-AI
 
-Modern delivery platforms generate large volumes of operational data involving:
+## Project Overview
 
-* Delivery times
-* Rider performance
-* Traffic conditions
-* Weather
-* Delivery distance
-* Vehicle conditions
-* Multiple-order assignments
-* Peak-hour demand
-* City/zone performance
+OpsLens AI analyzes delivery operations and answers questions such as:
 
-Simply reporting these metrics is not enough.
+- Why are deliveries becoming slower?
+- Which factors contribute most to delays?
+- Which deliveries are anomalous?
+- What delivery time should be expected?
+- Where should operations teams intervene?
+- What actions can reduce delivery delays?
 
-**OpsLens AI answers the next-level operational questions:**
+The platform combines descriptive analytics, diagnostic analytics, predictive machine learning, and operational recommendations.
 
-* Why are deliveries becoming slower?
-* Which operational factors have the biggest impact?
-* Which deliveries are anomalous?
-* Which cities or operating conditions are high-risk?
-* What delivery time should we expect?
-* Where should operations teams intervene?
-* What actions can reduce delivery delays?
+## Dataset
 
-The platform combines **descriptive analytics + diagnostic analytics + predictive ML + operational recommendations** into a single application.
+The project uses a cleaned Zomato-style delivery dataset containing:
 
----
-
-## 📊 Real Dataset
-
-The project uses a cleaned **Zomato-style real delivery dataset** containing:
-
-* **45,584 delivery records**
-* **24 operational features**
-* Delivery time
-* Distance
-* Rider information
-* Weather
-* Traffic
-* Vehicle condition
-* Order type
-* Vehicle type
-* Multiple deliveries
-* Festival information
-* City
-* Peak-hour indicators
-* Weekend indicators
+- 45,584 delivery records
+- 24 operational features
+- Delivery time
+- Distance
+- Rider information
+- Weather
+- Traffic
+- Vehicle condition
+- Order type
+- Vehicle type
+- Multiple deliveries
+- City
+- Peak-hour indicators
+- Weekend indicators
 
 ### Data Quality
 
-The dataset was validated before analytics and ML processing.
-
-| Metric                |    Result |
-| --------------------- | --------: |
-| Total Records         |    45,584 |
-| Duplicate Order IDs   |         0 |
-| Missing Order IDs     |         0 |
-| Missing Delivery Time |         0 |
-| Missing Distance      |         0 |
-| Missing Weather       |         0 |
-| Missing Traffic       |         0 |
-| Missing City          |         0 |
+| Metric | Result |
+|---|---:|
+| Total Records | 45,584 |
+| Duplicate Order IDs | 0 |
+| Missing Order IDs | 0 |
 | Average Delivery Time | 26.29 min |
-| Average Distance      |   9.73 km |
-| Maximum Distance      |  20.97 km |
+| Average Distance | 9.73 km |
+| Maximum Distance | 20.97 km |
 
----
+## Key Results
 
-# 🧠 Core Capabilities
-
-## 1. Executive Operations Dashboard
-
-The main dashboard provides a high-level operational view with:
-
-* Average delivery time
-* Operational health score
-* Anomaly count
-* Strongest operational factor
-* Risk level
-* Traffic impact
-* Peak-hour impact
-* Multiple-delivery impact
-* Vehicle-condition impact
-* Long-distance delivery impact
-* AI-generated recommendations
-
-### Current Operational Snapshot
-
-| KPI                   |     Value |
-| --------------------- | --------: |
-| Total Deliveries      |    45,584 |
+| Metric | Result |
+|---|---:|
+| Total Deliveries | 45,584 |
 | Average Delivery Time | 26.29 min |
-| Operational Health    |  40 / 100 |
-| Risk Level            |      High |
-| Detected Anomalies    |     2,280 |
-| Anomaly Rate          |     ~5.0% |
+| Operational Health | 40 / 100 |
+| Risk Level | High |
+| Detected Anomalies | 2,280 |
+| Anomaly Rate | 5.0% |
 
----
+### Main Operational Findings
 
-# 🔎 2. Root Cause Analysis
+| Factor | Impact |
+|---|---:|
+| Multiple Deliveries | +15.29 min |
+| Jam Traffic | +4.88 min |
+| Poor Vehicle Condition | +3.78 min |
+| Very Long Distance | +3.49 min |
+| Peak Hour | +2.37 min |
 
-OpsLens AI identifies the operational factors contributing to longer delivery times.
+## Features
 
-### Key Findings
+### Executive Dashboard
 
-| Factor                 |     Impact |
-| ---------------------- | ---------: |
-| Multiple Deliveries    | +15.29 min |
-| Jam Traffic            |  +4.88 min |
-| Poor Vehicle Condition |  +3.78 min |
-| Very Long Distance     |  +3.49 min |
-| Peak Hour              |  +2.37 min |
+Provides a high-level operational view with:
 
-The system also evaluates city-level operational performance.
+- Operational health score
+- Average delivery time
+- Anomaly count
+- Risk level
+- Root-cause indicators
+- AI recommendations
 
-**Semi-Urban deliveries average approximately 49.73 minutes**, making the city segment a major operational risk.
+![Dashboard](images/dashboard.png)
 
----
+### Root Cause Analysis
 
-# 🚨 3. Anomaly Detection
+Identifies the operational factors contributing to delivery delays.
 
-The anomaly detection module identifies deliveries that behave differently from normal operational patterns.
+Key factors include multiple deliveries, traffic, vehicle condition, distance, and peak-hour conditions.
 
-### Current Results
+![Root Cause Analysis](images/root-cause.png)
 
-* Total deliveries analyzed: **45,584**
-* Detected anomalies: **2,280**
-* Anomaly rate: **~5.0%**
+### Anomaly Detection
 
-The system considers operational characteristics such as:
+Detects unusual delivery patterns using operational features such as:
 
-* Delivery duration
-* Distance
-* Traffic
-* Weather
-* Rider characteristics
-* Vehicle condition
-* Multiple deliveries
-* Peak-hour conditions
+- Delivery duration
+- Distance
+- Traffic
+- Weather
+- Vehicle condition
+- Multiple deliveries
+- Peak-hour conditions
 
-This allows operations teams to focus on unusual deliveries instead of manually inspecting the entire dataset.
+![Anomaly Detection](images/anomalies.png)
 
----
+### Forecasting
 
-# 📈 4. Delivery Forecasting
+Generates a 7-period delivery-time forecast based on historical operational patterns.
 
-OpsLens AI includes a delivery-time forecasting module to estimate upcoming operational performance.
+Because the available dataset does not contain a reliable continuous timestamp series, sequential records are grouped into operational periods for forecasting.
 
-Because the available dataset does not contain a reliable continuous timestamp series, the forecasting module groups sequential records into operational periods rather than pretending the data represents actual calendar days.
+![Forecasting](images/forecast.png)
 
-### Forecast Output
+### Delivery Prediction
 
-The system generates a **7-period delivery-time forecast** based on historical operational patterns.
+Uses a Random Forest Regressor to predict delivery duration for new delivery conditions.
 
-This can be used to monitor whether average delivery performance is expected to:
+Input features include:
 
-* Increase
-* Decrease
-* Remain stable
+- Distance
+- Rider age
+- Rider rating
+- Weather
+- Traffic
+- Vehicle condition
+- Order type
+- Vehicle type
+- Multiple deliveries
+- Festival
+- City
+- Pickup hour
+- Peak hour
+- Weekend
 
----
+![Delivery Prediction](images/prediction.png)
 
-# 🤖 5. ML Delivery-Time Prediction
+### AI Insights
 
-OpsLens AI includes a machine-learning prediction pipeline for estimating delivery duration for a new order.
+Converts analytical findings into business-friendly operational insights.
 
-### Model
+![AI Insights](images/ai-insights.png)
 
-**Random Forest Regressor**
+### Automated Recommendations
 
-### Input Features
+Generates operational actions based on identified risks and root causes.
 
-* Distance
-* Rider age
-* Rider rating
-* Weather
-* Traffic level
-* Vehicle condition
-* Order type
-* Vehicle type
-* Multiple deliveries
-* Festival
-* City
-* Pickup hour
-* Peak hour
-* Weekend
+Examples include recommendations for:
 
-Categorical variables are handled using **OneHotEncoder**, while numerical features are passed through the preprocessing pipeline.
+- Multiple delivery assignments
+- Traffic management
+- Peak-hour rider allocation
+- Vehicle maintenance
 
-### Example
+![Recommendations](images/recommendations.png)
 
-Given operational conditions for a new delivery, the system produces:
+### Analytics
 
-* Predicted delivery time
-* Risk classification
-* Major contributing factors
-* Suggested intervention
+Provides interactive analysis across:
 
----
+- Traffic
+- Weather
+- Distance
+- City
+- Peak hours
+- Multiple deliveries
+- Vehicle conditions
+- Delivery performance
 
-# 💡 6. AI Operational Insights
+![Analytics](images/analytics.png)
 
-The AI Insights module converts analytical findings into business-friendly explanations.
+## Technology Stack
 
-Instead of presenting only numbers, the system generates insights around:
+### Programming Languages
 
-* Delivery performance
-* Traffic
-* Peak hours
-* Multiple deliveries
-* Vehicle conditions
-* Distance
-* City-level performance
+- Python
+- SQL
 
-This bridges the gap between **data analysis and business decision-making**.
+### Data Analysis and Processing
 
----
+- Pandas
+- NumPy
+- Data Cleaning
+- Data Validation
+- Exploratory Data Analysis
+- Feature Engineering
 
-# 🛠️ 7. Automated Recommendations
+### Database
 
-OpsLens AI converts root-cause findings into operational actions.
-
-### Example Recommendations
-
-**Critical — Multiple Deliveries**
-
-Multiple-order assignments significantly increase delivery time.
-
-**Recommended action:**
-Limit multi-order assignments during high-demand periods and apply stricter distance thresholds for order batching.
-
----
-
-**High — Traffic**
-
-Jam traffic increases delivery time by approximately **4.88 minutes**.
-
-**Recommended action:**
-Increase rider availability during heavy traffic periods and prioritize nearby orders in congested zones.
-
----
-
-**High — Peak Hour**
-
-Peak-hour deliveries take approximately **2.37 minutes longer**.
-
-**Recommended action:**
-Deploy additional riders during peak hours and dynamically balance order assignments.
-
----
-
-**High — Vehicle Condition**
-
-Poor vehicle condition is associated with approximately **3.78 additional minutes**.
-
-**Recommended action:**
-Introduce regular vehicle inspections and prioritize maintenance for riders with poor vehicle-condition scores.
-
----
-
-# 📊 Analytics Module
-
-The Analytics page provides interactive analysis across:
-
-### Delivery Performance
-
-* Average delivery time
-* Median delivery time
-* Delivery distance
-* Delivery-time distributions
-
-### Environment
-
-* Traffic
-* Weather
-* Peak-hour conditions
-
-### Operations
-
-* Multiple deliveries
-* Vehicle conditions
-* Order types
-* Weekend vs weekday patterns
-
-### Rider Performance
-
-* Rider age
-* Rider rating
-* Vehicle type
-
-### Geography
-
-* City-level delivery performance
-
-Interactive filters allow users to analyze specific operational segments.
-
----
-
-# 🖥️ Streamlit Application
-
-The project is delivered through an interactive Streamlit application with eight major modules:
-
-| Page                   | Purpose                              |
-| ---------------------- | ------------------------------------ |
-| 🏠 Executive Dashboard | Overall operational health           |
-| 🧠 AI Insights         | Automated business insights          |
-| 🔍 Analytics           | Interactive operational analysis     |
-| 🚨 Anomalies           | Detect unusual deliveries            |
-| 📈 Forecast            | Forecast future delivery performance |
-| 🤖 Prediction          | Predict delivery time                |
-| 💡 Recommendations     | Generate operational actions         |
-| 🔎 Root Cause          | Identify delay drivers               |
-
----
-
-# 🏗️ System Architecture
-
-```text
-                    ┌──────────────────────┐
-                    │   Zomato Delivery    │
-                    │       Dataset        │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Data Cleaning &       │
-                    │ Validation            │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │     PostgreSQL       │
-                    │   Delivery Database  │
-                    └──────────┬───────────┘
-                               │
-              ┌────────────────┼────────────────┐
-              │                │                │
-              ▼                ▼                ▼
-        ┌───────────┐    ┌───────────┐   ┌─────────────┐
-        │ Analytics │    │ ML Models  │   │ AI Insights │
-        └─────┬─────┘    └─────┬─────┘   └──────┬──────┘
-              │                │                │
-              └────────────────┼────────────────┘
-                               ▼
-                    ┌──────────────────────┐
-                    │     Streamlit        │
-                    │     Application      │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Operational Decisions │
-                    │ & Recommendations     │
-                    └──────────────────────┘
-```
-
----
-
-# 🧰 Tech Stack
-
-### Programming
-
-* Python
-* SQL
-
-### Data & Database
-
-* Pandas
-* NumPy
-* PostgreSQL
+- PostgreSQL
+- Neon PostgreSQL
+- SQL Queries
+- Relational Data Storage
 
 ### Machine Learning
 
-* Scikit-learn
-* Random Forest
-* One-Hot Encoding
-* Feature preprocessing
-* Anomaly detection
-* Forecasting
+- Scikit-learn
+- Random Forest Regressor
+- OneHotEncoder
+- Feature Preprocessing
+- Anomaly Detection
+- Forecasting
+- Predictive Modeling
+
+### Analytics
+
+- KPI Analysis
+- Root Cause Analysis
+- Operational Risk Analysis
+- Segmentation
+- Business Insights
+- Automated Recommendations
 
 ### Visualization
 
-* Plotly
-* Matplotlib
+- Plotly
+- Matplotlib
+- Streamlit Charts
 
-### Application
+### Application and Deployment
 
-* Streamlit
+- Streamlit
+- Streamlit Community Cloud
+- Neon PostgreSQL
 
-### Development
+### Development Tools
 
-* Git
-* GitHub
-* VS Code
+- Git
+- GitHub
+- VS Code
 
----
-
-# 📁 Project Structure
+## Architecture
 
 ```text
+Zomato Delivery Dataset
+          |
+          v
+Data Cleaning and Validation
+          |
+          v
+PostgreSQL / Neon PostgreSQL
+          |
+     +----+----+
+     |         |
+     v         v
+ Analytics    ML
+     |         |
+     +----+----+
+          |
+          v
+     AI Insights
+          |
+          v
+      Streamlit
+          |
+          v
+Operational Decisions
+and Recommendations
+```
+
+## Project Structure
+
+```
 OpsLens-AI/
-│
+|
 ├── config/
 │   ├── __init__.py
 │   └── settings.py
-│
+|
 ├── data/
 │   └── real_data/
 │       └── Zomato Dataset.csv
-│
+|
 ├── docs/
 │   ├── 01_Project_Overview.md
 │   ├── 02_Business_Requirements.md
@@ -429,7 +289,7 @@ OpsLens-AI/
 │   ├── 06_Python_Plan.md
 │   ├── 07_Business_Process.md
 │   └── 08_Database_Architecture.md
-│
+|
 ├── python/
 │   ├── analytics/
 │   ├── ingestion/
@@ -438,63 +298,96 @@ OpsLens-AI/
 │   ├── visualizations/
 │   ├── database.py
 │   └── main.py
-│
+|
 ├── sql/
 │   ├── 01_Basic_SQL/
 │   ├── 02_Business_KPIs/
 │   ├── 03_Advanced_SQL/
 │   ├── create_tables.sql
 │   └── README.md
-│
+|
 ├── streamlit/
 │   ├── components/
 │   ├── pages/
 │   └── app.py
-│
-├── reports/
+|
 ├── images/
+│   ├── dashboard.png
+│   ├── analytics.png
+│   ├── root-cause.png
+│   ├── anomalies.png
+│   ├── forecast.png
+│   ├── prediction.png
+│   ├── recommendations.png
+│   └── ai-insights.png
+|
+├── reports/
 ├── notebooks/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
----
+## Setup
 
-# ⚙️ Installation & Setup
-
-## 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Prisha-22/OpsLens-AI.git
 cd OpsLens-AI
 ```
 
-## 2. Create a virtual environment
+### 2. Create a Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-Activate it on Windows:
+### 3. Activate the Virtual Environment
 
-```powershell
+**Windows:**
+
+```bash
 venv\Scripts\activate
 ```
 
-## 3. Install dependencies
+**macOS or Linux:**
+
+```bash
+source venv/bin/activate
+```
+
+### 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 4. Configure PostgreSQL
+### 5. Configure the Database
 
-Create a PostgreSQL database and configure the database connection according to the project's configuration files.
+For local development, configure PostgreSQL using environment variables.
 
-> Never commit database passwords, API keys, or other secrets to GitHub.
+Example:
 
-## 5. Run the application
+```bash
+DB_HOST=localhost
+DB_NAME=opslens_ai
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_PORT=5432
+```
+
+For Streamlit Community Cloud, configure the Neon PostgreSQL connection using Streamlit Secrets.
+
+Example:
+
+```markdown
+```toml
+DATABASE_URL = "your_neon_connection_string"
+
+> Never commit database passwords, API keys, connection strings, or other credentials to GitHub.
+
+### 6. Run the Application
 
 From the project root:
 
@@ -504,108 +397,80 @@ python -m streamlit run streamlit/app.py
 
 The application will open in your browser.
 
----
+## Live Deployment
 
-# 📌 Key Business Insights
+The application is deployed using:
 
-The current dataset analysis shows several important operational patterns:
+- GitHub
+- Streamlit Community Cloud
+- Neon PostgreSQL
 
-### 🚦 Traffic
+Live application: https://opslens-ai-project22.streamlit.app/
 
-Jam traffic increases average delivery time by approximately **4.88 minutes**.
+## Key Business Insights
 
-### 🌙 Peak Hours
+**Traffic**
+Jam traffic increases average delivery time by approximately 4.88 minutes.
 
-Peak-hour deliveries take approximately **2.37 minutes longer** than non-peak deliveries.
+**Peak Hours**
+Peak-hour deliveries take approximately 2.37 minutes longer than non-peak deliveries.
 
-### 📦 Multiple Deliveries
+**Multiple Deliveries**
+Multiple-order assignments have one of the strongest operational impacts and substantially increase delivery time.
 
-Multiple-order assignments have one of the strongest operational impacts, increasing delivery time substantially.
+**Vehicle Condition**
+Poor vehicle condition is associated with approximately 3.78 additional minutes.
 
-### 🚗 Vehicle Condition
+**Distance**
+Very long-distance deliveries take approximately 3.49 minutes longer.
 
-Poor vehicle condition is associated with approximately **3.78 additional minutes**.
-
-### 📍 Distance
-
-Very long-distance deliveries take approximately **3.49 minutes longer**.
-
-### 🏙️ City Operations
-
+**City Operations**
 Semi-Urban deliveries show significantly higher delivery times and represent a major operational risk area.
 
----
+## Project Workflow
 
-# 🎯 Project Goals
-
-OpsLens AI was designed to demonstrate an end-to-end analytics workflow:
-
-```text
+```
 Raw Data
-   ↓
+   |
 Data Cleaning
-   ↓
+   |
 Data Validation
-   ↓
-Database
-   ↓
+   |
+PostgreSQL
+   |
 SQL Analytics
-   ↓
+   |
 Python Analytics
-   ↓
+   |
 Root Cause Analysis
-   ↓
+   |
 Machine Learning
-   ↓
+   |
 AI Insights
-   ↓
+   |
 Recommendations
-   ↓
+   |
 Operational Decisions
 ```
 
-The goal is not simply to build dashboards, but to create a system that moves from:
+The project follows the workflow: **Data → Insight → Prediction → Action**
 
-**Data → Insight → Prediction → Action**
+## Future Improvements
 
----
+- Real-time delivery monitoring
+- Live traffic integration
+- Demand forecasting
+- Rider allocation optimization
+- Delivery-zone heatmaps
+- Explainable ML with SHAP
+- Automated alerts
+- Model performance monitoring
+- Production API using FastAPI
 
-# 🚀 Future Improvements
-
-Potential future enhancements include:
-
-* Real-time delivery monitoring
-* Live GPS integration
-* Real-time traffic APIs
-* Demand forecasting
-* Rider allocation optimization
-* Delivery-zone heatmaps
-* Advanced time-series forecasting
-* Model performance monitoring
-* Explainable ML with SHAP
-* Automated alerting
-* Cloud deployment
-* Role-based dashboards
-* Production API using FastAPI
-
----
-
-# 👩‍💻 Author
+## Author
 
 **Prisha Shah**
-
 M.Sc. Applied Data Science
 SRM Institute of Science and Technology
 
-### Project
-
-**OpsLens AI — Delivery Operations Intelligence Platform**
-
-GitHub:
-https://github.com/Prisha-22/OpsLens-AI
-
----
-
-## ⭐ Project Highlight
-
-> **OpsLens AI combines SQL analytics, Python, PostgreSQL, machine learning, anomaly detection, forecasting, root-cause analysis, and AI-powered recommendations into a unified delivery operations intelligence platform.**
+GitHub: https://github.com/Prisha-22/OpsLens-AI

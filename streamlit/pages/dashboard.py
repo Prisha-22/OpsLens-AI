@@ -9,7 +9,6 @@ sys.path.append(
 
 import pandas as pd
 import streamlit as st
-import plotly.express as px
 
 from python.database import get_connection
 
@@ -29,43 +28,32 @@ from python.insights.real_recommendation_engine import (
     generate_real_recommendations
 )
 
-from components.filters import show_filters
-
-from components.charts import (
-    revenue_chart,
-    delivery_status_chart,
-    weather_chart,
-    traffic_chart
-)
-
 
 def show_dashboard():
 
     # =====================================================
-    # DATABASE
+    # LOAD REAL DELIVERY DATA
     # =====================================================
 
     conn = get_connection()
 
-    customers = pd.read_sql(
-        "SELECT * FROM customers;",
+    real_orders = pd.read_sql(
+        """
+        SELECT
+            actual_delivery_minutes,
+            distance_km,
+            weather,
+            traffic_level,
+            peak_hour,
+            multiple_deliveries,
+            city,
+            vehicle_condition
+        FROM real_delivery_orders;
+        """,
         conn
     )
 
-    orders = pd.read_sql(
-        "SELECT * FROM orders;",
-        conn
-    )
-
-    restaurants = pd.read_sql(
-        "SELECT * FROM restaurants;",
-        conn
-    )
-
-    riders = pd.read_sql(
-        "SELECT * FROM riders;",
-        conn
-    )
+    real_order_count = len(real_orders)
 
     conn.close()
 
@@ -133,11 +121,9 @@ def show_dashboard():
     strongest_factor = None
     strongest_impact = float("-inf")
 
-    for factor_key in factor_names:
+    for factor_key, factor_name in factor_names.items():
 
-        factor_df = root_causes.get(
-            factor_key
-        )
+        factor_df = root_causes.get(factor_key)
 
         if factor_df is None:
             continue
@@ -145,20 +131,13 @@ def show_dashboard():
         if factor_df.empty:
             continue
 
-        impact = factor_df[
-            "impact_vs_average"
-        ].max()
+        impact = factor_df["impact_vs_average"].max()
 
         if impact > strongest_impact:
-
             strongest_impact = impact
-
-            strongest_factor = factor_names[
-                factor_key
-            ]
+            strongest_factor = factor_name
 
     if strongest_factor is None:
-
         strongest_factor = "N/A"
         strongest_impact = 0
 
@@ -315,44 +294,22 @@ def show_dashboard():
 
     col1, col2, col3 = st.columns(3)
 
-    col1.metric(
-        "🚨 Critical",
-        critical
-    )
-
-    col2.metric(
-        "🔴 High",
-        high
-    )
-
-    col3.metric(
-        "🟡 Medium",
-        medium
-    )
-
-    # Show top 3 recommendations
+    col1.metric("🚨 Critical", critical)
+    col2.metric("🔴 High", high)
+    col3.metric("🟡 Medium", medium)
 
     for recommendation in recommendations[:3]:
 
         priority = recommendation["priority"]
 
         if priority == "Critical":
-
-            st.error(
-                f"🚨 {recommendation['area']}"
-            )
+            st.error(f"🚨 {recommendation['area']}")
 
         elif priority == "High":
-
-            st.warning(
-                f"⚠️ {recommendation['area']}"
-            )
+            st.warning(f"⚠️ {recommendation['area']}")
 
         else:
-
-            st.info(
-                f"ℹ️ {recommendation['area']}"
-            )
+            st.info(f"ℹ️ {recommendation['area']}")
 
         st.markdown(
             f"**Finding:** {recommendation['finding']}"
@@ -361,65 +318,14 @@ def show_dashboard():
         st.markdown(
             f"**Action:** {recommendation['recommendation']}"
         )
+
     # =====================================================
-    # FILTERS
+    # KEY PERFORMANCE INDICATORS
     # =====================================================
 
     st.markdown("---")
 
-    selected_city, selected_weather, selected_status = (
-        show_filters(
-            customers,
-            orders
-        )
-    )
-
-    filtered_orders = orders.copy()
-
-    # City
-
-    if selected_city != "All":
-
-        customer_ids = customers[
-            customers["city"] == selected_city
-        ]["customer_id"]
-
-        filtered_orders = filtered_orders[
-            filtered_orders["customer_id"].isin(
-                customer_ids
-            )
-        ]
-
-    # Weather
-
-    if selected_weather != "All":
-
-        filtered_orders = filtered_orders[
-            filtered_orders["weather"] == selected_weather
-        ]
-
-    # Status
-
-    if selected_status != "All":
-
-        filtered_orders = filtered_orders[
-            filtered_orders["delivery_status"] == selected_status
-        ]
-
-    # =====================================================
-    # EXISTING BUSINESS KPIs
-    # =====================================================
-
     st.subheader("📈 Key Performance Indicators")
-
-    conn = get_connection()
-
-    real_order_count = pd.read_sql(
-        "SELECT COUNT(*) AS count FROM real_delivery_orders;",
-        conn
-    ).iloc[0]["count"]
-
-    conn.close()
 
     col1, col2, col3, col4 = st.columns(4)
 
@@ -430,7 +336,7 @@ def show_dashboard():
 
     col2.metric(
         "⏱️ Avg Delivery Time",
-        f"{health['overall_average_delivery_time']:.1f} min"
+        f"{average_delivery:.1f} min"
     )
 
     col3.metric(
@@ -444,40 +350,24 @@ def show_dashboard():
     )
 
     # =====================================================
-    # REVENUE
+    # REAL DELIVERY OPERATIONS OVERVIEW
     # =====================================================
 
     st.markdown("---")
 
     st.subheader("📊 Real Delivery Operations Overview")
 
-    conn = get_connection()
-
-    real_orders = pd.read_sql(
-        """
-        SELECT
-            actual_delivery_minutes,
-            distance_km,
-            weather,
-            traffic_level,
-            peak_hour,
-            multiple_deliveries,
-            city
-        FROM real_delivery_orders;
-        """,
-        conn
-    )
-
-    conn.close()
-
-    # Delivery time distribution
     st.markdown("### ⏱️ Delivery Time Distribution")
 
-    st.bar_chart(
-        real_orders["actual_delivery_minutes"].value_counts().sort_index().head(40)
+    delivery_distribution = (
+        real_orders["actual_delivery_minutes"]
+        .value_counts()
+        .sort_index()
+        .head(40)
     )
 
-    # Average delivery time by traffic level
+    st.bar_chart(delivery_distribution)
+
     st.markdown("### 🚦 Average Delivery Time by Traffic")
 
     traffic_performance = (
@@ -489,7 +379,6 @@ def show_dashboard():
 
     st.bar_chart(traffic_performance)
 
-    # Average delivery time by weather
     st.markdown("### 🌦️ Average Delivery Time by Weather")
 
     weather_performance = (
@@ -511,10 +400,6 @@ def show_dashboard():
 
     breakdown_col1, breakdown_col2 = st.columns(2)
 
-    # -----------------------------------------------------
-    # Delivery Time by City
-    # -----------------------------------------------------
-
     with breakdown_col1:
 
         st.markdown("### 🏙️ Average Delivery Time by City")
@@ -527,11 +412,6 @@ def show_dashboard():
         )
 
         st.bar_chart(city_performance)
-
-
-    # -----------------------------------------------------
-    # Delivery Time by Distance
-    # -----------------------------------------------------
 
     with breakdown_col2:
 
@@ -559,11 +439,6 @@ def show_dashboard():
 
         st.bar_chart(distance_performance)
 
-
-    # -----------------------------------------------------
-    # Peak Hour Analysis
-    # -----------------------------------------------------
-
     st.markdown("### ⏰ Peak Hour Impact")
 
     peak_performance = (
@@ -573,11 +448,6 @@ def show_dashboard():
     )
 
     st.bar_chart(peak_performance)
-
-
-    # -----------------------------------------------------
-    # Multiple Delivery Analysis
-    # -----------------------------------------------------
 
     st.markdown("### 📦 Multiple Delivery Impact")
 
@@ -592,5 +462,4 @@ def show_dashboard():
 
 
 if __name__ == "__main__":
-
     show_dashboard()

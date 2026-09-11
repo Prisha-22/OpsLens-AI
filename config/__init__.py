@@ -1,7 +1,9 @@
+import os
+
 DB_CONFIG = {
-    "host": "localhost",
-    "database": "opslens_ai",
-    "user": "postgres",
-    "password": "admin123",
-    "port": "5432"
+    "host": os.getenv("DB_HOST", "localhost"),
+    "database": os.getenv("DB_NAME", "opslens_ai"),
+    "user": os.getenv("DB_USER", "postgres"),
+    "password": os.getenv("DB_PASSWORD", "admin123"),
+    "port": os.getenv("DB_PORT", "5432")
 }

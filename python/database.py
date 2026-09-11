@@ -1,11 +1,18 @@
 import os
 import psycopg2
+import streamlit as st
 
 from config import DB_CONFIG
 
 
 def get_connection():
     database_url = os.getenv("DATABASE_URL")
+
+    if not database_url:
+        try:
+            database_url = st.secrets.get("DATABASE_URL")
+        except Exception:
+            database_url = None
 
     if database_url:
         return psycopg2.connect(database_url)
